@@ -1,4 +1,5 @@
 from collections import defaultdict
+from datetime import datetime
 
 from freezegun import freeze_time
 
@@ -208,7 +209,7 @@ class TestStockQuantHistory(TransactionCase):
     def test_stock_manager_create(self):
         stock_history_now = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("1984-06-15 11:22:32"),
+                "inventory_date": "1984-06-15 11:22:32",
             }
         )
         self.assertEqual(
@@ -223,13 +224,13 @@ class TestStockQuantHistory(TransactionCase):
     def test_no_lines_before_oldest_move(self):
         stock_history_1970 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("1970-01-01"),
+                "inventory_date": "1970-01-01",
             }
         )
         stock_history_1970.action_generate_stock_quant_history()
         self.assertEqual(
             stock_history_1970.generated_date,
-            fields.Datetime.from_string("2024-01-01 10:11"),
+            datetime(2024, 1, 1, 10, 11),
         )
         self.assertEqual(stock_history_1970.state, "generated")
         self.assertEqual(len(stock_history_1970.stock_quant_history_ids), 0)
@@ -243,7 +244,7 @@ class TestStockQuantHistory(TransactionCase):
 
         snapshot_10 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 10:00:00"),
+                "inventory_date": "2023-01-01 10:00:00",
             }
         )
         snapshot_10.action_generate_stock_quant_history()
@@ -260,7 +261,7 @@ class TestStockQuantHistory(TransactionCase):
         quant_history_10.quantity = 10.001
         snapshot_20 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 20:00:00"),
+                "inventory_date": "2023-01-01 20:00:00",
             }
         )
         snapshot_20.action_generate_stock_quant_history()
@@ -281,7 +282,7 @@ class TestStockQuantHistory(TransactionCase):
 
         snapshot_10 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 10:00:00"),
+                "inventory_date": "2023-01-01 10:00:00",
             }
         )
         snapshot_10.action_generate_stock_quant_history()
@@ -295,7 +296,7 @@ class TestStockQuantHistory(TransactionCase):
 
         snapshot_15 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 15:00:00"),
+                "inventory_date": "2023-01-01 15:00:00",
             }
         )
         snapshot_15.action_generate_stock_quant_history()
@@ -312,7 +313,7 @@ class TestStockQuantHistory(TransactionCase):
         )
         snapshot_20 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 20:00:00"),
+                "inventory_date": "2023-01-01 20:00:00",
             }
         )
         snapshot_20.action_generate_stock_quant_history()
@@ -359,7 +360,7 @@ class TestStockQuantHistory(TransactionCase):
 
         snapshot_10 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 10:00:00"),
+                "inventory_date": "2023-01-01 10:00:00",
             }
         )
         snapshot_10.action_generate_stock_quant_history()
@@ -374,12 +375,12 @@ class TestStockQuantHistory(TransactionCase):
 
         self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 12:00:00"),
+                "inventory_date": "2023-01-01 12:00:00",
             }
         )
         snapshot_15 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 15:00:00"),
+                "inventory_date": "2023-01-01 15:00:00",
             }
         )
         snapshot_15.action_generate_stock_quant_history()
@@ -396,7 +397,7 @@ class TestStockQuantHistory(TransactionCase):
 
         snapshot_20 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 20:00:00"),
+                "inventory_date": "2023-01-01 20:00:00",
             }
         )
         snapshot_20.action_generate_stock_quant_history()
@@ -444,7 +445,7 @@ class TestStockQuantHistory(TransactionCase):
 
         snapshot_10 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 10:00:00"),
+                "inventory_date": "2023-01-01 10:00:00",
             }
         )
         snapshot_10.action_generate_stock_quant_history()
@@ -456,7 +457,7 @@ class TestStockQuantHistory(TransactionCase):
 
         snapshot_10 = self.env["stock.quant.history.snapshot"].create(
             {
-                "inventory_date": fields.Datetime.from_string("2023-01-01 10:00:00"),
+                "inventory_date": "2023-01-01 10:00:00",
             }
         )
         snapshot_10.action_generate_stock_quant_history()
