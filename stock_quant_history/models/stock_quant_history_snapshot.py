@@ -195,7 +195,7 @@ class StockQuantHistorySnapshot(models.Model):
         # remove line with zero to save same disk space
         # avoid loop with direct SQL query
         _logger.info("Remove useless stock_quant_history with quantity == 0")
-        self.env["stock.quant.history"]._flush()
+        self.env["stock.quant.history"].flush_model()
         self.env.cr.execute(
             "DELETE FROM stock_quant_history where quantity = 0 and snapshot_id = %s",
             (self.id,),
